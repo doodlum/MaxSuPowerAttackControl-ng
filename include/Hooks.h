@@ -8,7 +8,7 @@ namespace MaxSuPowerAttackControl
 	public:
 		static void HookPowerAttack()
 		{
-			REL::Relocation<std::uintptr_t> AttackBlockHandlerVtbl{ RE::Offset::AttackBlockHandler::Vtbl };
+			REL::Relocation<std::uintptr_t> AttackBlockHandlerVtbl{RE::VTABLE_AttackBlockHandler[0]};
 			_ProcessAttackHook = AttackBlockHandlerVtbl.write_vfunc(0x4, ProcessAttackHook);
 			logger::info("Hook Power Attack Control!");
 		}
@@ -18,7 +18,5 @@ namespace MaxSuPowerAttackControl
 
 		static inline REL::Relocation<decltype(ProcessAttackHook)> _ProcessAttackHook;
 	};
-
-
 
 }
